@@ -79,6 +79,8 @@ For **average-to-average growth**, the daily RW benchmark is **not zero**. Use t
 | Log, $`r_{t+1}^{AA}=\ln\bar P_{t+1}-\ln\bar P_t`$ | $`\ln(P_t^{EOM}/\bar P_t)`$ | $`\ln(\bar P_{t+1}/P_t^{EOM})`$ |
 | **Preferred exact transformation**, $`z_{t+1}=\bar P_{t+1}/P_t^{EOM}-1`$ | **$`0`$** | $`z_{t+1}`$ |
 
+**Note:** The exact rows assume a driftless RW in price levels. Log rows are exact for a driftless RW in log prices when $`\bar P_t`$ is the geometric average ($`\ln\bar P_t`$ equals the average daily log price); with arithmetic averages they hold to first order.
+
 If a regression needs a growth-rate transformation, **use growth relative to EOM** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):
 
 ```math
@@ -92,6 +94,19 @@ Convert the model forecast **back to a level** before evaluation:
 ```
 
 In the example above, the daily RW implies **5.26% average-to-average growth** (100/95 − 1), **not 0%**—without any predictability in daily price changes.
+
+### Multi-step horizons
+
+Forecasting month $`t+h`$ from the end of month $`t`$, the daily RW forecast of **every** future monthly average is $`P_t^{EOM}`$:
+
+| Target at horizon $`h`$ | RW forecast |
+|---|---|
+| Level $`\bar P_{t+h}`$ | $`P_t^{EOM}`$ |
+| Cumulative growth $`\bar P_{t+h}/\bar P_t-1`$ | $`P_t^{EOM}/\bar P_t-1`$ |
+| $`z_{t+h}=\bar P_{t+h}/P_t^{EOM}-1`$ | $`0`$ |
+| Month-over-month log growth $`r_{t+h}^{AA}`$ | $`\ln(P_t^{EOM}/\bar P_t)`$ at $`h=1`$; $`0`$ at $`h\ge2`$ |
+
+The EOM gap enters month-over-month growth at $`h=1`$ only; carrying it into later months is an error. For direction at horizon $`h`$, use $`\mathrm{sgn}(\bar P_{t+h}-P_t^{EOM})`$.
 
 ## 5. Directional accuracy: compare against the same last daily price
 
@@ -114,13 +129,15 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 
 ## 7. Common mistakes: what's wrong with these equations?
 
+Figures below assume a driftless daily RW with $`n=21`$ trading days per month; quarterly values ($`n\approx63`$) are slightly larger.
+
 **1. A no-change forecast of monthly averages**
 
 ```math
 \widehat{\bar P}_{t+1\mid t}=\bar P_t
 ```
 
-**Actually assumes:** a RW in **monthly averages**, not daily prices. **Problem:** *straw-man benchmark*; spurious forecast gains when a daily RW.
+**Actually assumes:** a RW in **monthly averages**, not daily prices. **Problem:** *straw-man benchmark*; spurious forecast gains when a daily RW. The EOM benchmark has about **46% lower MSPE**: $`\mathrm{MSPE}_{EOM}/\mathrm{MSPE}_{\bar P_t}=(n+1)(2n+1)/(2(2n^2+1))\approx0.54`$.
 
 **2. Zero growth between monthly averages**
 
@@ -128,7 +145,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 \widehat g_{t+1\mid t}^{AA}=0
 ```
 
-**Actually assumes:** no change in successive averages. **Problem:** *straw-man benchmark* with spurious forecast gains when a daily RW; the correct daily RW is $`P_t^{EOM}/\bar P_t-1`$.
+**Actually assumes:** no change in successive averages. **Problem:** *straw-man benchmark* with spurious forecast gains when a daily RW; the correct daily RW is $`P_t^{EOM}/\bar P_t-1`$. Same MSPE penalty as Mistake 1: both forecast errors are the Mistake 1 errors divided by $`\bar P_t`$.
 
 **3. No change in returns**
 
@@ -136,7 +153,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 \widehat r_{t+1\mid t}=r_t
 ```
 
-**Actually assumes:** returns themselves follow a RW. **Problem:** *straw-man benchmark* for a RW in prices as this is **VERY** easy to beat.
+**Actually assumes:** returns themselves follow a RW. **Problem:** *straw-man benchmark* for a RW in prices as this is **VERY** easy to beat: it doubles the MSPE of the zero-return forecast for point-sampled returns, and for average-to-average returns it has about **2.8 times** the MSPE of the EOM benchmark.
 
 **4. Rejecting the daily RW because average changes are autocorrelated**
 
@@ -144,7 +161,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
 ```
 
-**Actually tests:** dependence in averaged changes. **Problem:** *spurious predictability*—temporal averaging induces serial dependence even under a daily RW ([Working, 1960](https://doi.org/10.2307/1907574)).
+**Actually tests:** dependence in averaged changes. **Problem:** *spurious predictability*; temporal averaging induces serial dependence even under a daily RW ([Working, 1960](https://doi.org/10.2307/1907574)). Under the null, the population $`\beta`$ is $`(n^2-1)/(2(2n^2+1))\approx0.25`$, not 0.
 
 **5. Measuring the direction of an average relative to the previous average**
 
@@ -152,9 +169,9 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
 \mathrm{sgn}(\bar P_{t+1}-\bar P_t)
 ```
 
-**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW; instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW: the RW's own call, $`\mathrm{sgn}(P_t^{EOM}-\bar P_t)`$, is right about **74%** of the time. Instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
 
-**Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark.
+**Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark: the optimal forecast from averages alone improves on the AA no-change by only about 7% in MSPE, versus 46% for EOM, which makes the case for daily data.
 
 ### References
 
