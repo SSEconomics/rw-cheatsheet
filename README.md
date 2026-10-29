@@ -193,10 +193,10 @@ z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
 
 ### References
 
-- [Working (1960)](https://doi.org/10.2307/1907574), *Econometrica*, 28(4), 916–918.
-- [Ellwanger & Snudden (2023)](https://doi.org/10.1016/j.jbankfin.2023.106962), *Journal of Banking & Finance*, 154, 106962.
-- [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
-- [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
-- [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038).
 - [Arain & Snudden (2026)](https://doi.org/10.1002/for.70077), *Journal of Forecasting*, 45(3), 1245–1260.
+- [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
 - [Conlon, Cotter & Eyiah-Donkor (2022)](https://doi.org/10.1016/j.jbankfin.2021.106331), *Journal of Banking & Finance*, 134, 106331.
+- [Ellwanger & Snudden (2023)](https://doi.org/10.1016/j.jbankfin.2023.106962), *Journal of Banking & Finance*, 154, 106962.
+- [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), working paper, SSRN.
+- [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
+- [Working (1960)](https://doi.org/10.2307/1907574), *Econometrica*, 28(4), 916–918.
