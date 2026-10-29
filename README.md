@@ -173,17 +173,19 @@ Figures below assume a driftless daily RW with $`n=21`$ trading days per month; 
 g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
 ```
 
-**Problem:** Averaging creates serial correlation even under a daily RW, so under the null $`\beta=(n^2-1)/(2(2n^2+1))\approx0.25`$ ([Working, 1960](https://doi.org/10.2307/1907574)). A significant $`\beta`$ is *spurious predictability*, not evidence against the daily RW.
+**Problem 1:** Averaging creates serial correlation even under a daily RW, so under the null $`\beta=(n^2-1)/(2(2n^2+1))\approx0.25`$ ([Working, 1960](https://doi.org/10.2307/1907574)). A significant $`\beta`$ is *spurious predictability*, not evidence against the daily RW. 
 
-**Traditional fix:** EOM sampling, which avoids the correlation but stops forecasting the average.
+**Problem 2:** Other predictors of average returns can inherit the bias; for oil, the predictability vanishes with EOM prices ([Conlon, Cotter & Eyiah-Donkor, 2022](https://doi.org/10.1016/j.jbankfin.2021.106331)).
 
-**Key insight ([Ellwanger & Snudden, 2023](https://doi.org/10.1016/j.jbankfin.2023.106962)):** Keep forecasting the average (levels or growth rates), but test against the **last daily price**. The test above omits the EOM gap, which the daily RW says predicts average growth one-for-one; once it is included, lagged growth adds nothing:
+**Traditional fix:** EOM sampling, which avoids the correlation and spurious predictors but stops forecasting the average.
+
+**Key insight 1 ([Ellwanger & Snudden, 2023](https://doi.org/10.1016/j.jbankfin.2023.106962)):** Keep forecasting the average (levels or growth rates), but test against the **last daily price**. The test above omits the EOM gap, which the daily RW says predicts average growth one-for-one; once it is included, lagged growth adds nothing:
 
 ```math
 g_{t+1}^{AA}=\alpha+\beta_1\left(\frac{P_t^{EOM}}{\bar P_t}-1\right)+\beta_2 g_t^{AA}+u_{t+1},\qquad H_0:\ \alpha=0,\ \beta_1=1,\ \beta_2=0
 ```
 
-**Better ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):** Model growth relative to EOM, which imposes $`\beta_1=1`$. Any predictor known at the end of month $`t`$ can replace $`z_t`$:
+**Key insight 2 ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):** Model growth relative to EOM, which imposes $`\beta_1=1`$. Any predictor known at the end of month $`t`$ can replace $`z_t`$ and avoid spurious predictors:
 
 ```math
 z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
@@ -197,3 +199,4 @@ z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
 - [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
 - [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038).
 - [Arain & Snudden (2026)](https://doi.org/10.1002/for.70077), *Journal of Forecasting*, 45(3), 1245–1260.
+- [Conlon, Cotter & Eyiah-Donkor (2022)](https://doi.org/10.1016/j.jbankfin.2021.106331), *Journal of Banking & Finance*, 134, 106331.
