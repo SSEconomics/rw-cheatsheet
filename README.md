@@ -157,7 +157,17 @@ Figures below assume a driftless daily RW with $`n=21`$ trading days per month; 
 
 **Actually assumes:** returns themselves follow a RW. **Problem:** *straw-man benchmark* for a RW in prices as this is **VERY** easy to beat: it doubles the MSPE of the zero-return forecast for point-sampled returns, and for average-to-average returns it has about **2.8 times** the MSPE of the EOM benchmark.
 
-**4. Rejecting the daily RW because average changes are autocorrelated**
+**4. Measuring the direction of an average relative to the previous average**
+
+```math
+\mathrm{sgn}(\bar P_{t+1}-\bar P_t)
+```
+
+**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW: the RW's own call, $`\mathrm{sgn}(P_t^{EOM}-\bar P_t)`$, is right about **74%** of the time. Instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+
+**Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark: the optimal forecast from averages alone improves on the AA no-change by only about 7% in MSPE, versus 46% for EOM, which makes the case for daily data.
+
+**5. Rejecting the daily RW because average changes are autocorrelated**
 
 ```math
 g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
@@ -178,16 +188,6 @@ g_{t+1}^{AA}=\alpha+\beta_1\left(\frac{P_t^{EOM}}{\bar P_t}-1\right)+\beta_2 g_t
 ```math
 z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
 ```
-
-**5. Measuring the direction of an average relative to the previous average**
-
-```math
-\mathrm{sgn}(\bar P_{t+1}-\bar P_t)
-```
-
-**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW: the RW's own call, $`\mathrm{sgn}(P_t^{EOM}-\bar P_t)`$, is right about **74%** of the time. Instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
-
-**Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark: the optimal forecast from averages alone improves on the AA no-change by only about 7% in MSPE, versus 46% for EOM, which makes the case for daily data.
 
 ### References
 
