@@ -1,6 +1,6 @@
 # Random-Walk Forecasting: A Cheat Sheet
 
-**The random-walk (RW) null concerns the underlying daily, point-sampled price series** (e.g., stocks or commodities)—**not** monthly averages constructed from it. Test forecasts of averages against the RW implied by the **daily** data.
+**The random-walk (RW) null concerns the underlying daily, point-sampled price series** (e.g., stocks or commodities)—**not** averages constructed from it. Test forecasts of averages against the RW implied by the **daily** data.
 
 ## 1. Daily prices and point-sampled returns
 
@@ -22,7 +22,7 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
 \boxed{\widehat g_{d+1\mid d}^{RW}=0}
 ```
 
-**Forecast the log return**, $`r_{d+1}=\ln P_{d+1}-\ln P_d`$: zero is the benchmark for a **driftless RW in log prices** (a different null).
+**Forecast the log return**, $`r_{d+1}=\ln P_{d+1}-\ln P_d`$: 
 
 ```math
 \boxed{\widehat r_{d+1\mid d}^{RW}=0}
@@ -40,11 +40,11 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
 
 | Application | Forecast target | Evaluate |
 |---|---|---|
-| **Finance / trading** | **Point-sampled returns** (daily or EOM) | Return forecast errors |
-| **Economics / commodity prices** | **Monthly-average price levels** | Level forecast errors |
-| **Averages modeled using a growth transformation** | Reconstruct **monthly-average levels** | Level forecast errors |
+| **Finance / trading** | **Point-sampled returns** (daily or end-of-period) | Return forecast errors |
+| **Economics** | **Period-average price levels** | Level forecast errors |
+| **Averages modeled using a growth transformation** | Reconstruct **period-average levels** | Level forecast errors |
 
-For financial returns, use the economically relevant price or payoff series (e.g., account for dividends or futures rolls where appropriate). **Average-to-average returns are usually a transformation, not the economic object of interest.**
+For financial returns, use the economically relevant price or payoff series (e.g., account for dividends or futures rolls where appropriate). **Average-to-average returns are a transformation, not the economic object of interest.**
 
 ## 3. Monthly averages: forecast levels
 
@@ -55,7 +55,7 @@ Let $`\bar P_t`$ be the **average daily price** during month $`t`$ and $`P_t^{EO
 ```
 
 > [!WARNING]
-> **Not the previous monthly average,** $`\bar P_t`$! The RW forecast uses the **last daily price**. Using $`\bar P_t`$ creates a **straw-man benchmark** and apparent predictability even when daily prices follow a RW.
+> **Not the previous monthly average,** $`\bar P_t`$! The RW forecast uses the **last daily price**. Using $`\bar P_t`$ creates a **straw-man benchmark** and is predictable by construction when daily prices follow a RW.
 
 | Monthly-average target | RW forecast | RW forecast error |
 |---|---|---|
@@ -71,9 +71,9 @@ For **average-to-average growth**, the daily RW benchmark is **not zero**. Use t
 |---|---|---|
 | Exact, $`g_{t+1}^{AA}=\bar P_{t+1}/\bar P_t-1`$ | $`P_t^{EOM}/\bar P_t-1`$ | $`(\bar P_{t+1}-P_t^{EOM})/\bar P_t`$ |
 | Log, $`r_{t+1}^{AA}=\ln\bar P_{t+1}-\ln\bar P_t`$ | $`\ln(P_t^{EOM}/\bar P_t)`$ | $`\ln(\bar P_{t+1}/P_t^{EOM})`$ |
-| **Preferred exact transformation**, $`z_{t+1}=\bar P_{t+1}/P_t^{EOM}-1`$ | **$`0`$** | $`\bar P_{t+1}/P_t^{EOM}-1`$ |
+| **Preferred exact transformation**, $`z_{t+1}=\bar P_{t+1}/P_t^{EOM}-1`$ | **$`0`$** | $`z_{t+1}`$ |
 
-If a regression needs a growth-rate outcome, **prefer exact growth relative to EOM**:
+If a regression needs a growth-rate transformation, **use growth relative to EOM** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):
 
 ```math
 \boxed{z_{t+1}=\frac{\bar P_{t+1}}{P_t^{EOM}}-1,\qquad \widehat z_{t+1\mid t}^{RW}=0}
@@ -95,13 +95,13 @@ For a candidate model, compare the sign of its forecasted change with that of th
 |---|---|---|
 | **Daily / EOM level** | $`\mathrm{sgn}(\widehat P_{d+1\mid d}-P_d)`$ | $`\mathrm{sgn}(P_{d+1}-P_d)`$ |
 | **Next monthly-average level** | $`\mathrm{sgn}(\widehat{\bar P}_{t+1\mid t}-P_t^{EOM})`$ | $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ |
-| **EOM-to-average exact growth** $`z`$ | $`\mathrm{sgn}(\widehat z_{t+1\mid t})`$ | $`\mathrm{sgn}(z_{t+1})`$ |
+| **Average-to-EOM exact growth** $`z`$ | $`\mathrm{sgn}(\widehat z_{t+1\mid t})`$ | $`\mathrm{sgn}(z_{t+1})`$ |
 
 Under the daily RW null, a non-informative *up/down* prediction has an **expected success ratio of 50%** under standard conditions. Measuring direction relative to $`\bar P_t`$ instead can yield **spuriously high success ratios** and false rejections, even under a daily RW ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
 
 ## 6. Estimating forecasts of averages
 
-**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence, while EOM-only data discard within-month information. Where possible, **use daily data** via **BUMIDAS** or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
+**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence, while EOM-only data discard within-month information. Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
 
 ## 7. Common mistakes: what's wrong with these equations?
 
@@ -111,7 +111,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 \widehat{\bar P}_{t+1\mid t}=\bar P_t
 ```
 
-**Actually assumes:** a RW in **monthly averages**, not daily prices. **Problem:** *straw-man benchmark*; spurious forecast gains against the daily RW.
+**Actually assumes:** a RW in **monthly averages**, not daily prices. **Problem:** *straw-man benchmark*; spurious forecast gains when a daily RW.
 
 **2. Zero growth between monthly averages**
 
@@ -119,7 +119,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 \widehat g_{t+1\mid t}^{AA}=0
 ```
 
-**Actually assumes:** no change in successive averages. **Problem:** *straw-man benchmark*; the daily RW predicts $`P_t^{EOM}/\bar P_t-1`$, generally nonzero.
+**Actually assumes:** no change in successive averages. **Problem:** *straw-man benchmark* with spurious forecast gains when a daily RW; the correct daily RW is $`P_t^{EOM}/\bar P_t-1`$.
 
 **3. No change in returns**
 
@@ -127,7 +127,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 \widehat r_{t+1\mid t}=r_t
 ```
 
-**Actually assumes:** returns themselves follow a RW. **Problem:** *straw-man benchmark* for a RW in prices; a price RW does **not** imply this forecast.
+**Actually assumes:** returns themselves follow a RW. **Problem:** *straw-man benchmark* for a RW in prices as this is **VERY** easy to beat.
 
 **4. Rejecting the daily RW because average changes are autocorrelated**
 
@@ -153,3 +153,4 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
 - [Ellwanger & Snudden (2023)](https://doi.org/10.1016/j.jbankfin.2023.106962), *Journal of Banking & Finance*, 154, 106962.
 - [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
 - [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
+- [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038)
