@@ -45,9 +45,9 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
 | **Economics** | **Period-average price levels** | Level forecast errors |
 | **Averages modeled using a growth transformation** | Reconstruct **period-average levels** | Level forecast errors |
 
-For financial returns:
-**Use the economically relevant price or payoff series** (e.g., account for dividends or futures rolls where appropriate). 
-**Better to evaluate profitability rather than error** using a trading strategy net of transaction costs and report directional accuracy, including positive/negative and extreme/non-extreme movements ([Arain & Snudden (2026)](https://doi.org/10.1002/for.70077)).
+- For financial returns:
+  - **Use the economically relevant price or payoff series** (e.g., account for dividends or futures rolls where appropriate).
+  - **Better to evaluate profitability rather than error** using a trading strategy net of transaction costs and report directional accuracy, including positive/negative and extreme/non-extreme movements ([Arain & Snudden (2026)](https://doi.org/10.1002/for.70077)).
 
 > [!WARNING]
 > **Average-to-average returns are not an object of interest.**  Moreover, they are **inefficient** when used on the RHS and cause **problems** on the LHS.
@@ -107,8 +107,10 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 
 ## 6. Estimating forecasts of averages
 
-**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence ([Working, 1960](https://doi.org/10.2307/1907574)), while EOM-only data discard within-month information and will be inefficient when autoregressive persistance is greater than one, such as VAR(p) with p > 1.
-Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden, 2026](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
+- **Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence ([Working, 1960](https://doi.org/10.2307/1907574)), while EOM-only data discard within-month information and will be inefficient when autoregressive persistance is greater than one, such as VAR(p) with p > 1.
+
+- Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden, 2026](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
+
 
 ## 7. Common mistakes: what's wrong with these equations?
 
@@ -161,4 +163,4 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
 - [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
 - [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
 - [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038).
-- [Arain & Snudden (2026)](https://doi.org/10.1002/for.70077).*Journal of Forecasting*, 45(3), 1245–1260.
+- [Arain & Snudden (2026)](https://doi.org/10.1002/for.70077), *Journal of Forecasting*, 45(3), 1245–1260.
