@@ -50,7 +50,7 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
   - **Better to evaluate profitability rather than error** using a trading strategy net of transaction costs and report directional accuracy, including positive/negative and extreme/non-extreme movements ([Arain & Snudden (2026)](https://doi.org/10.1002/for.70077)).
 
 > [!WARNING]
-> **Average-to-average returns are not an object of interest.**  Moreover, they are **inefficient** when used on the RHS and cause **problems** on the LHS.
+> **Average-to-average returns are are rarely the object of interest in finance.**  Moreover, on the RHS they are inefficient and can create apparent predictability.
 
 ## 3. Monthly averages: forecast levels
 
