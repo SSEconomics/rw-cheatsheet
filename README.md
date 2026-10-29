@@ -44,7 +44,10 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
 | **Economics** | **Period-average price levels** | Level forecast errors |
 | **Averages modeled using a growth transformation** | Reconstruct **period-average levels** | Level forecast errors |
 
-For financial returns, use the economically relevant price or payoff series (e.g., account for dividends or futures rolls where appropriate). **Average-to-average returns are a transformation, not the economic object of interest.**
+For financial returns, use the economically relevant price or payoff series (e.g., account for dividends or futures rolls where appropriate). **Best to evaluate profitability** (rather than error) using a trading and report postive/negative and extreme/non-extreme directional accuracy. 
+
+> [!WARNING]
+> **Average-to-average returns are not an object of interest.**  Moreover, they are **inefficient** when used on the RHS and cause **problems** on the LHS.
 
 ## 3. Monthly averages: forecast levels
 
@@ -89,7 +92,7 @@ In the example above, the daily RW implies **5.26% average-to-average growth** (
 
 ## 5. Directional accuracy: compare against the same last daily price
 
-For a candidate model, compare the sign of its forecasted change with that of the **realized change from the last point-sampled observation** ([McCarthy & Snudden, *Applied Economics*, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+For a candidate model, compare the sign of its forecasted change with that of the **realized change from the last point-sampled observation** ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
 
 | Forecast target | Predicted direction | Realized direction |
 |---|---|---|
@@ -97,11 +100,11 @@ For a candidate model, compare the sign of its forecasted change with that of th
 | **Next monthly-average level** | $`\mathrm{sgn}(\widehat{\bar P}_{t+1\mid t}-P_t^{EOM})`$ | $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ |
 | **Average-to-EOM exact growth** $`z`$ | $`\mathrm{sgn}(\widehat z_{t+1\mid t})`$ | $`\mathrm{sgn}(z_{t+1})`$ |
 
-Under the daily RW null, a non-informative *up/down* prediction has an **expected success ratio of 50%** under standard conditions. Measuring direction relative to $`\bar P_t`$ instead can yield **spuriously high success ratios** and false rejections, even under a daily RW ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+Under the daily RW null, a non-informative *up/down* prediction has an **expected success ratio of 50%** under standard conditions. Measuring direction relative to $`\bar P_t`$ instead can yield **spuriously high success ratios** and false rejections, under a daily RW ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
 
 ## 6. Estimating forecasts of averages
 
-**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence, while EOM-only data discard within-month information. Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
+**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence ([Working, 1960](https://doi.org/10.2307/1907574)), while EOM-only data discard within-month information and will be inefficient when autoregressive persistance is greater than one. Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
 
 ## 7. Common mistakes: what's wrong with these equations?
 
@@ -153,4 +156,5 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
 - [Ellwanger & Snudden (2023)](https://doi.org/10.1016/j.jbankfin.2023.106962), *Journal of Banking & Finance*, 154, 106962.
 - [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
 - [Benmoussa, Ellwanger & Snudden (2026)](https://doi.org/10.1016/j.ijforecast.2025.02.009), *International Journal of Forecasting*, 42(1), 281–295.
-- [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038)
+- [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), *Available at SSRN:* [http://dx.doi.org/10.2139/ssrn.5312038](http://dx.doi.org/10.2139/ssrn.5312038).
+- [Arain & Snudden (2026)](https://doi.org/10.1002/for.70077).*Journal of Forecasting*, 45(3), 1245–1260.
