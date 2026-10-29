@@ -167,7 +167,7 @@ Figures below assume a driftless daily RW with $`n=21`$ trading days per month; 
 
 **Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark: the optimal forecast from averages alone improves on the AA no-change by only about 7% in MSPE, versus 46% for EOM, which makes the case for daily data.
 
-**5. Rejecting the daily RW because average changes are autocorrelated**
+**5. Rejecting the daily RW because average changes are predictable**
 
 ```math
 g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
@@ -177,7 +177,7 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
 
 **Problem 2:** Other predictors of average returns can inherit the bias; for oil, the predictability vanishes with EOM prices ([Conlon, Cotter & Eyiah-Donkor, 2022](https://doi.org/10.1016/j.jbankfin.2021.106331)).
 
-**Traditional fix:** EOM sampling, which avoids the correlation and spurious predictors but stops forecasting the average.
+**Traditional fix:** EOM sampling, which avoids both problems but stops forecasting the average.
 
 **Key insight 1 ([Ellwanger & Snudden, 2023](https://doi.org/10.1016/j.jbankfin.2023.106962)):** Keep forecasting the average (levels or growth rates), but test against the **last daily price**. The test above omits the EOM gap, which the daily RW says predicts average growth one-for-one; once it is included, lagged growth adds nothing:
 
@@ -185,7 +185,7 @@ g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
 g_{t+1}^{AA}=\alpha+\beta_1\left(\frac{P_t^{EOM}}{\bar P_t}-1\right)+\beta_2 g_t^{AA}+u_{t+1},\qquad H_0:\ \alpha=0,\ \beta_1=1,\ \beta_2=0
 ```
 
-**Key insight 2 ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):** Model growth relative to EOM, which imposes $`\beta_1=1`$. Any predictor known at the end of month $`t`$ can replace $`z_t`$ and avoid spurious predictors:
+**Key insight 2 ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):** Model growth relative to EOM ($`z_{t+1}`$), which imposes $`\beta_1=1`$. Any predictor known at the end of month $`t`$ can then replace $`z_t`$ without spurious predictability:
 
 ```math
 z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
