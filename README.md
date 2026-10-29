@@ -104,7 +104,7 @@ Under the daily RW null, a non-informative *up/down* prediction has an **expecte
 
 ## 6. Estimating forecasts of averages
 
-**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence ([Working, 1960](https://doi.org/10.2307/1907574)), while EOM-only data discard within-month information and will be inefficient when autoregressive persistance is greater than one. Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
+**Avoid defaulting to lagged average-to-average or EOM returns on the right-hand side** of averaged-price regressions: averaging creates artificial persistence ([Working, 1960](https://doi.org/10.2307/1907574)), while EOM-only data discard within-month information and will be inefficient when autoregressive persistance is greater than one. Where possible, **use daily data** via **BUMIDAS** ([Lee & Snudden, 2026](http://dx.doi.org/10.2139/ssrn.5312038)) or **bottom-up forecasting** ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)).
 
 ## 7. Common mistakes: what's wrong with these equations?
 
