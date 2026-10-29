@@ -35,7 +35,9 @@ P_{d+1}=P_d+\varepsilon_{d+1}, \qquad E[\varepsilon_{d+1}\mid\mathcal F_d]=0.
 | Exact return $`g_{d+1}`$ | $`0`$ | $`g_{d+1}`$ |
 | Log return $`r_{d+1}`$ (log-price RW) | $`0`$ | $`r_{d+1}`$ |
 
-*Example:* If today's price is 100, the price-level RW forecasts **100 tomorrow** and a **0% exact return**. The same rules apply to point-sampled **end-of-month (EOM)** prices and returns.
+*Example:* If today's price is 100, the price-level RW forecasts **100 tomorrow** and a **0% exact return**. 
+
+**Note:** The same rules apply to point-sampled **end-of-month (EOM)** prices and returns.
 
 ## 2. What should I forecast and evaluate?
 
@@ -158,10 +160,24 @@ Figures below assume a driftless daily RW with $`n=21`$ trading days per month; 
 **4. Rejecting the daily RW because average changes are autocorrelated**
 
 ```math
-g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne 0
+g_{t+1}^{AA}=\alpha+\beta g_t^{AA}+u_{t+1},\qquad \beta\ne0
 ```
 
-**Actually tests:** dependence in averaged changes. **Problem:** *spurious predictability*; temporal averaging induces serial dependence even under a daily RW ([Working, 1960](https://doi.org/10.2307/1907574)). Under the null, the population $`\beta`$ is $`(n^2-1)/(2(2n^2+1))\approx0.25`$, not 0.
+**Problem:** Averaging creates serial correlation even under a daily RW, so under the null $`\beta=(n^2-1)/(2(2n^2+1))\approx0.25`$ ([Working, 1960](https://doi.org/10.2307/1907574)). A significant $`\beta`$ is *spurious predictability*, not evidence against the daily RW.
+
+**Traditional fix:** EOM sampling, which avoids the correlation but stops forecasting the average.
+
+**Key insight ([Ellwanger & Snudden, 2023](https://doi.org/10.1016/j.jbankfin.2023.106962)):** Keep forecasting the average (levels or growth rates), but test against the **last daily price**. The test above omits the EOM gap, which the daily RW says predicts average growth one-for-one; once it is included, lagged growth adds nothing:
+
+```math
+g_{t+1}^{AA}=\alpha+\beta_1\left(\frac{P_t^{EOM}}{\bar P_t}-1\right)+\beta_2 g_t^{AA}+u_{t+1},\qquad H_0:\ \alpha=0,\ \beta_1=1,\ \beta_2=0
+```
+
+**Better ([Benmoussa, Ellwanger & Snudden, 2026](https://doi.org/10.1016/j.ijforecast.2025.02.009)):** Model growth relative to EOM, which imposes $`\beta_1=1`$. Any predictor known at the end of month $`t`$ can replace $`z_t`$:
+
+```math
+z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
+```
 
 **5. Measuring the direction of an average relative to the previous average**
 
