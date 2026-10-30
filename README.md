@@ -112,7 +112,7 @@ The EOM gap enters month-over-month growth at $`h=1`$ only; carrying it into lat
 
 ## 5. Directional accuracy: compare against the same last daily price
 
-For a candidate model, compare the sign of its forecasted change with that of the **realized change from the last point-sampled observation** ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+For a candidate model, compare the sign of its forecasted change with that of the **realized change from the last point-sampled observation** ([McCarthy & Snudden, 2026](https://doi.org/10.1080/00036846.2025.2564464)).
 
 | Forecast target | Predicted direction | Realized direction |
 |---|---|---|
@@ -120,7 +120,7 @@ For a candidate model, compare the sign of its forecasted change with that of th
 | **Next monthly-average level** | $`\mathrm{sgn}(\widehat{\bar P}_{t+1\mid t}-P_t^{EOM})`$ | $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ |
 | **Average-to-EOM exact growth** $`z`$ | $`\mathrm{sgn}(\widehat z_{t+1\mid t})`$ | $`\mathrm{sgn}(z_{t+1})`$ |
 
-Under the daily RW null, a non-informative *up/down* prediction has an **expected success ratio of 50%** under standard conditions. Measuring direction relative to $`\bar P_t`$ instead can yield **spuriously high success ratios** and false rejections, under a daily RW ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+Under the daily RW null, a non-informative *up/down* prediction has an **expected success ratio of 50%** under standard conditions. Measuring direction relative to $`\bar P_t`$ instead can yield **spuriously high success ratios** and false rejections, under a daily RW ([McCarthy & Snudden, 2026](https://doi.org/10.1080/00036846.2025.2564464)).
 
 ## 6. Estimating forecasts of averages
 
@@ -163,7 +163,7 @@ Figures below assume a driftless daily RW with $`n=21`$ trading days per month; 
 \mathrm{sgn}(\bar P_{t+1}-\bar P_t)
 ```
 
-**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW: the RW's own call, $`\mathrm{sgn}(P_t^{EOM}-\bar P_t)`$, is right about **74%** of the time. Instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2025](https://doi.org/10.1080/00036846.2025.2564464)).
+**Actually measures:** average-to-average direction. **Problem:** *spurious directional accuracy* under a daily RW: the RW's own call, $`\mathrm{sgn}(P_t^{EOM}-\bar P_t)`$, is right about **74%** of the time. Instead use $`\mathrm{sgn}(\bar P_{t+1}-P_t^{EOM})`$ ([McCarthy & Snudden, 2026](https://doi.org/10.1080/00036846.2025.2564464)).
 
 **Timing:** Only use observations available at the forecast origin. $`P_t^{EOM}`$ must be the **last available daily price** and consistent with the averaged series. If it is unavailable, monthly averages alone cannot construct this daily-RW benchmark: the optimal forecast from averages alone improves on the AA no-change by only about 7% in MSPE, versus 46% for EOM, which makes the case for daily data.
 
@@ -198,5 +198,5 @@ z_{t+1}=\alpha+\beta z_t+u_{t+1},\qquad H_0:\ \alpha=\beta=0
 - [Conlon, Cotter & Eyiah-Donkor (2022)](https://doi.org/10.1016/j.jbankfin.2021.106331), *Journal of Banking & Finance*, 134, 106331.
 - [Ellwanger & Snudden (2023)](https://doi.org/10.1016/j.jbankfin.2023.106962), *Journal of Banking & Finance*, 154, 106962.
 - [Lee & Snudden (2026)](http://dx.doi.org/10.2139/ssrn.5312038), working paper, SSRN.
-- [McCarthy & Snudden (2025)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, published online October 16, 2025.
+- [McCarthy & Snudden (2026)](https://doi.org/10.1080/00036846.2025.2564464), *Applied Economics*, 58(51), 11276-11291.
 - [Working (1960)](https://doi.org/10.2307/1907574), *Econometrica*, 28(4), 916–918.
